@@ -1,8 +1,7 @@
 package zb.ru.bzionservice.soap.handling.response
 
 import jakarta.xml.bind.annotation.*
-import zb.ru.bzionservice.model.HandlingUnits
-import zb.ru.bzionservice.soap.dto.HandlingUnitsIonDto
+import zb.ru.bzionservice.soap.dto.model.HandlingUnitsIonDto
 import zb.ru.bzionservice.soap.handling.HandlingUnitsEndpoint
 
 @XmlAccessorType(XmlAccessType.FIELD)

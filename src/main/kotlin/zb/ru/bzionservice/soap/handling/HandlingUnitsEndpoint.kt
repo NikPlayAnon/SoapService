@@ -6,7 +6,7 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot
 import org.springframework.ws.server.endpoint.annotation.RequestPayload
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload
 import zb.ru.bzionservice.service.handling.HandlingUnitServiceImpl
-import zb.ru.bzionservice.soap.dto.HandlingUnitsIonMapper
+import zb.ru.bzionservice.soap.dto.to_dto.HandlingUnitsIonMapper
 import zb.ru.bzionservice.soap.handling.request.GetHandlingUnitsRequest
 import zb.ru.bzionservice.soap.handling.response.GetHandlingUnitsResponse
 

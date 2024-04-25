@@ -1,9 +1,9 @@
-package zb.ru.bzionservice.soap.dto
+package zb.ru.bzionservice.soap.dto.model
 
 import jakarta.xml.bind.annotation.XmlAccessType
 import jakarta.xml.bind.annotation.XmlAccessorType
 import jakarta.xml.bind.annotation.XmlType
-import zb.ru.bzionservice.model.HandlingUnit
+
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(
     name = "handlingUnits", propOrder = [

@@ -1,4 +1,4 @@
-package zb.ru.bzionservice.soap.dto
+package zb.ru.bzionservice.soap.dto.model
 
 import jakarta.xml.bind.annotation.XmlAccessType
 import jakarta.xml.bind.annotation.XmlAccessorType
