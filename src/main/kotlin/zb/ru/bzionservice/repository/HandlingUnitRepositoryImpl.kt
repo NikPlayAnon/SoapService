@@ -17,7 +17,7 @@ class HandlingUnitRepositoryImpl : HandlingUnitRepository  {
         unitList += HandlingUnit(huid="R202011040000000880", cdfHght="600", cdfWdth="600", cwar="R0100", cdfLoca="0001", cdfLose="0004")
 
         absoluteUnit.add(HandlingUnits(mvid="1", datentime="2024-02-14T08:57:23.676Z", actioncode="locationUpdate", handlingUnit=unitList))
-        absoluteUnit.add(HandlingUnits(mvid="1", datentime="2024-02-14T08:57:23.676Z", actioncode="sizeUpdate", handlingUnit=unitList))
+        absoluteUnit.add(HandlingUnits(mvid="2", datentime="2024-02-14T08:57:23.676Z", actioncode="sizeUpdate", handlingUnit=unitList))
     }
     override fun findFirst(): HandlingUnits? {
         return absoluteUnit.poll()

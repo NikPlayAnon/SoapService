@@ -6,6 +6,7 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot
 import org.springframework.ws.server.endpoint.annotation.RequestPayload
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload
 import zb.ru.bzionservice.service.handling.HandlingUnitServiceImpl
+import zb.ru.bzionservice.soap.dto.HandlingUnitsIonMapper
 import zb.ru.bzionservice.soap.handling.request.GetHandlingUnitsRequest
 import zb.ru.bzionservice.soap.handling.response.GetHandlingUnitsResponse
 
@@ -26,10 +27,9 @@ class HandlingUnitsEndpoint @Autowired constructor(handlingUnitsService: Handlin
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "GetHandlingUnitsRequest")
     @ResponsePayload
-//    fun getUnit4Transfer(@org.springframework.ws.server.endpoint.annotation.RequestPayload request: GetUnit4TransferRequest): GetUnit4TransferResponse? {
     fun getHandlingUnits(@RequestPayload request: GetHandlingUnitsRequest): GetHandlingUnitsResponse? {
         val response = GetHandlingUnitsResponse()
-        response.setUnit4Transfer(handlingUnitsService?.findFirstUnit())
+        response.setHandlingUnits(HandlingUnitsIonMapper().transform(handlingUnitsService?.findFirstUnit()))
         return response
     }
 }
