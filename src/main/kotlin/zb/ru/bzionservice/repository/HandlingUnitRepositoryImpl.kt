@@ -12,12 +12,12 @@ class HandlingUnitRepositoryImpl : HandlingUnitRepository  {
 
     @PostConstruct
     fun initData() {
-        unitList += HandlingUnit(handlingUnitID="R202011040000000519", customHight="600", customWidth="600", warehouse="R0100", customWerehouseLocation="0001", customNumberInPlace="0004")
-        unitList += HandlingUnit(handlingUnitID="R202011040000000638", customHight="600", customWidth="600", warehouse="R0100", customWerehouseLocation="0001", customNumberInPlace="0004")
-        unitList += HandlingUnit(handlingUnitID="R202011040000000880", customHight="600", customWidth="600", warehouse="R0100", customWerehouseLocation="0001", customNumberInPlace="0004")
+        unitList += HandlingUnit(huid="R202011040000000519", cdfHght="600", cdfWdth="600", cwar="R0100", cdfLoca="0001", cdfLose="0004")
+        unitList += HandlingUnit(huid="R202011040000000638", cdfHght="600", cdfWdth="600", cwar="R0100", cdfLoca="0001", cdfLose="0004")
+        unitList += HandlingUnit(huid="R202011040000000880", cdfHght="600", cdfWdth="600", cwar="R0100", cdfLoca="0001", cdfLose="0004")
 
-        absoluteUnit.add(HandlingUnits(TransactionId="1", dateAndTime="2024-02-14T08:57:23.676Z", actionCode="locationUpdate", handlingUnit=unitList))
-        absoluteUnit.add(HandlingUnits(TransactionId="1", dateAndTime="2024-02-14T08:57:23.676Z", actionCode="sizeUpdate", handlingUnit=unitList))
+        absoluteUnit.add(HandlingUnits(mvid="1", datentime="2024-02-14T08:57:23.676Z", actioncode="locationUpdate", handlingUnit=unitList))
+        absoluteUnit.add(HandlingUnits(mvid="1", datentime="2024-02-14T08:57:23.676Z", actioncode="sizeUpdate", handlingUnit=unitList))
     }
     override fun findFirst(): HandlingUnits? {
         return absoluteUnit.poll()

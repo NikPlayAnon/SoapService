@@ -13,5 +13,5 @@ import jakarta.xml.bind.annotation.XmlType
         "handlingUnit"
     ]
 )
-data class HandlingUnits(val TransactionId: String, val dateAndTime: String, val actionCode: String, val handlingUnit: List<HandlingUnit> ) {
+data class HandlingUnits(val mvid: String, val datentime: String, val actioncode: String, val handlingUnit: List<HandlingUnit> ) {
 }

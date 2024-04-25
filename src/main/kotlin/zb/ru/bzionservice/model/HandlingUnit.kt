@@ -16,11 +16,11 @@ import jakarta.xml.bind.annotation.XmlType
     ]
 )
 data class HandlingUnit(
-    val handlingUnitID: String,
-    val customHight: String,
-    val customWidth: String,
-    val warehouse: String,
-    val customWerehouseLocation: String,
-    val customNumberInPlace: String
+    val huid: String,
+    val cdfHght: String,
+    val cdfWdth: String,
+    val cwar: String,
+    val cdfLoca: String,
+    val cdfLose: String
 ) {
 }

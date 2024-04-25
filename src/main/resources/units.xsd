@@ -38,20 +38,4 @@
         </xs:sequence>
     </xs:complexType>
 
-<!--    <xs:element name="GetHandlingUnitsRequest">-->
-<!--        <xs:complexType>-->
-<!--            <xs:sequence>-->
-<!--                <xs:element name="fromIon" type="xs:string"/>-->
-<!--            </xs:sequence>-->
-<!--        </xs:complexType>-->
-<!--    </xs:element>-->
-
-<!--    <xs:element name="GetHandlingUnitsResponse">-->
-<!--        <xs:complexType>-->
-<!--            <xs:sequence>-->
-<!--                <xs:element name="response" type="xs:string"/>-->
-<!--            </xs:sequence>-->
-<!--        </xs:complexType>-->
-<!--    </xs:element>-->
-
 </xs:schema>
