@@ -6,9 +6,9 @@ import zb.ru.bzionservice.soap.dto.model.HandlingUnitsIonDto
 
 class HandlingUnitsIonMapper: Mapper<HandlingUnits, HandlingUnitsIonDto> {
         override fun transform(source: HandlingUnits?): HandlingUnitsIonDto = HandlingUnitsIonDto(
-            source!!.mvid,
-            source.datentime,
-            source.actioncode,
+            source!!.transactionId,
+            source.dateAndTime,
+            source.actionCode,
             source.handlingUnit.map { HandlingUnitIonMapper().transform(it)}
         )
 }

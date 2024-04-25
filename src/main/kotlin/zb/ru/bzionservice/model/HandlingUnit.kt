@@ -1,11 +1,11 @@
 package zb.ru.bzionservice.model
 
 data class HandlingUnit(
-    val huid: String,
-    val cdfHght: String,
-    val cdfWdth: String,
-    val cwar: String,
-    val cdfLoca: String,
-    val cdfLose: String
+    val handlingUnitId: String,
+    val cdfHight: String,
+    val cdfWidth: String,
+    val warehouse: String,
+    val cdfLocation: String,
+    val cdfLocationSegmantNumber: String
 ) {
 }
