@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct
 import org.springframework.stereotype.Component
 import zb.ru.bzionservice.model.HandlingUnit
 import zb.ru.bzionservice.model.HandlingUnits
+import zb.ru.bzionservice.model.TransactionNotice
 import java.util.Queue
 import java.util.LinkedList
 
@@ -23,8 +24,13 @@ class HandlingUnitRepositoryImpl : HandlingUnitRepository  {
         return absoluteUnit.poll()
     }
 
+    override fun setResponse(response: TransactionNotice) {
+        responseQueue.add(response)
+        println(responseQueue)
+    }
+
 
     var unitList = listOf<HandlingUnit>()
     var absoluteUnit: Queue<HandlingUnits> = LinkedList<HandlingUnits>()
-
+    var responseQueue: Queue<TransactionNotice> = LinkedList<TransactionNotice>()
 }

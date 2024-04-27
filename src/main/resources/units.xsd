@@ -38,4 +38,26 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:element name="SetAcknowledgeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="mvid" type="xs:string" maxOccurs="1" minOccurs="1"/>
+                <xs:element name="success" type="xs:string" maxOccurs="1" minOccurs="1"/>
+                <xs:element name="errorlog" type="tns:resultList" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="resultList">
+        <xs:list itemType="xs:string">
+        </xs:list>
+    </xs:simpleType>
+
+    <xs:element name="SetAcknowledgeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="noted" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 </xs:schema>
