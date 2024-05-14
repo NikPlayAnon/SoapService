@@ -48,10 +48,11 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:simpleType name="resultList">
-        <xs:list itemType="xs:string">
-        </xs:list>
-    </xs:simpleType>
+    <xs:complexType name="resultList">
+        <xs:sequence>
+            <xs:element name="error" type="xs:string" maxOccurs="1" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
 
     <xs:element name="SetAcknowledgeResponse">
         <xs:complexType>
