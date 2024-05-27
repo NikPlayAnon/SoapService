@@ -28,7 +28,12 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	//rabbit branch 16615
+//	implementation("com.rabbitmq:amqp-client:5.15.0")
+	implementation("org.springframework.boot:spring-boot-starter-amqp")
+//	implementation("org.springframework.amqp:spring-rabbit:2.1.5.RELEASE")
 }
+
 
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
