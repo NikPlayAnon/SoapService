@@ -90,9 +90,7 @@ mvid, success status and list of errors if any in to repository
 <soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gs="http://spring.io/guides/gs-producing-web-service">
    <soapenv:Header/>
    <soapenv:Body>
-      <gs:GetHandlingUnitsRequest>
-         <gs:fromIon>?</gs:fromIon>
-      </gs:GetHandlingUnitsRequest>
+      <gs:GetHandlingUnitsRequest/>
    </soapenv:Body>
 </soapenv:Envelope>
 ```
@@ -108,13 +106,7 @@ mvid, success status and list of errors if any in to repository
     <wsdl:types>
         <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
                    targetNamespace="http://spring.io/guides/gs-producing-web-service">
-            <xs:element name="GetHandlingUnitsRequest">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element name="fromIon" type="xs:string"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
+            <xs:element name="GetHandlingUnitsRequest"/>
             <xs:element name="GetHandlingUnitsResponse">
                 <xs:complexType>
                     <xs:sequence>
