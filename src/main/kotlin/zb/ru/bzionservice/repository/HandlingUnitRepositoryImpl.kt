@@ -4,15 +4,13 @@ package zb.ru.bzionservice.repository
 //import com.rabbitmq.client.DeliverCallback
 //import com.rabbitmq.client.Delivery
 import jakarta.annotation.PostConstruct
-import org.springframework.amqp.core.AmqpTemplate
-import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.stereotype.Component
 import zb.ru.bzionservice.model.HandlingUnit
 import zb.ru.bzionservice.model.HandlingUnits
 import zb.ru.bzionservice.model.TransactionNotice
+//import zb.ru.bzionservice.model.toTransactionNoticeToRabbit
 import zb.ru.bzionservice.rabbit.PublisherController
-import zb.ru.bzionservice.rabbit.RabbitMqConfig
-import zb.ru.bzionservice.rabbit.SubscriberService
+import zb.ru.bzionservice.rabbit.mapper.toRabbit.TransactionNoticeToRabbitMapper
 import java.util.*
 
 
@@ -70,9 +68,10 @@ class HandlingUnitRepositoryImpl(private val publisherController: PublisherContr
     override fun setResponse(response: TransactionNotice) {
         responseQueue.add(response)
         val mapper = "asd" //jacksonObjectMapper()
-        println(response)
-        println(responseQueue)
-        publisherController.queue1()
+//        println(response)
+//        println(TransactionNoticeToRabbitMapper().transform(response))
+//        println(responseQueue)
+        publisherController.queue1(TransactionNoticeToRabbitMapper().transform(response))
     }
 
     override fun addToQueue(handlingUnitFromRabbit: HandlingUnits) {

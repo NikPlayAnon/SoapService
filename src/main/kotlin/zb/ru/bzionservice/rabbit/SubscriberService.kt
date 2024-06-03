@@ -2,6 +2,9 @@ package zb.ru.bzionservice.rabbit
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
+import org.springframework.amqp.rabbit.annotation.Exchange
+import org.springframework.amqp.rabbit.annotation.Queue
+import org.springframework.amqp.rabbit.annotation.QueueBinding
 import org.springframework.amqp.rabbit.annotation.RabbitListener
 import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.stereotype.Component
@@ -21,7 +24,7 @@ class SubscriberService (
 
 
 
-    @RabbitListener(queues = ["\${spring.rabbitmq.queue.to.bzionservice}"]) // Dynamically reading the queue name using SpEL from the "queue" object.
+    @RabbitListener(queues = ["\${spring.rabbitmq.queue.to.bzionservice}"]) // Dynamically reading the queue name using SpEL from the "queue" object. // Dynamically reading the queue name using SpEL from the "queue" object.
     fun receive(message: String) =
         repositoryImpl.addToQueue(HandlingUnitsFromRabbitMapper().transform(objectMapper.readValue<HandlingUnitsRabbitDto>(message)))
 }

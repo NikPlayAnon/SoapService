@@ -1,18 +1,25 @@
 package zb.ru.bzionservice.rabbit
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.fasterxml.jackson.module.kotlin.readValue
 import org.springframework.amqp.core.AmqpTemplate
+import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
+import zb.ru.bzionservice.rabbit.dto.TransactionNoticeRabbitDto
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 
 
 //@Log4j2
 
 
 @Component
-class PublisherController(private val amqpTemplate: AmqpTemplate) {
+//class PublisherController(private val amqpTemplate: AmqpTemplate) {
+    class PublisherController(private val rabbitTemplate: RabbitTemplate) {
 
 //    @Autowired
 //    var template: AmqpTemplate? = null
@@ -21,9 +28,12 @@ class PublisherController(private val amqpTemplate: AmqpTemplate) {
 
     @RequestMapping("/emit")
     @ResponseBody
-    fun queue1(): String? {
+    fun queue1(message: TransactionNoticeRabbitDto): String? {
 //        logger.info("Emit to queue1")
-        amqpTemplate.convertAndSend("amq.direct","amq.direct.2", "Message to queue")
+//        amqpTemplate.convertAndSend("amq.direct","amq.direct.2", "Message to queue")
+//        println(message)
+        val mapper = ObjectMapper().registerModule(KotlinModule())
+        rabbitTemplate.convertAndSend("amq.direct","amq.direct.2", mapper.writeValueAsString(message))
         return "Emit to queue"
     }
 }

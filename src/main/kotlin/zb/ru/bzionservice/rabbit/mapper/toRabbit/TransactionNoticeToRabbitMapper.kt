@@ -1,6 +1,19 @@
 package zb.ru.bzionservice.rabbit.mapper.toRabbit
 
-class TransactionNoticeToRabbitMapper {
+import zb.ru.bzionservice.model.HandlingUnit
+import zb.ru.bzionservice.model.TransactionNotice
+import zb.ru.bzionservice.rabbit.dto.HandlingUnitRabbitDto
+import zb.ru.bzionservice.rabbit.dto.TransactionNoticeRabbitDto
+import zb.ru.bzionservice.soap.dto.Mapper
+
+class TransactionNoticeToRabbitMapper: Mapper<TransactionNotice, TransactionNoticeRabbitDto> {
+    override fun transform(source: TransactionNotice?): TransactionNoticeRabbitDto =
+            TransactionNoticeRabbitDto(
+                    source!!.transactionId,
+                    source.success,
+                    source.errorLog
+            )
+
 }
 
 //data class AData(val a: String)
