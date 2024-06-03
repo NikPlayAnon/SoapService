@@ -1,5 +1,68 @@
 # bz-ion-service
 
+Service **bz-ion-service** functions as an intermediate between ION and service 
+what works with terminals for **Handling Units** operations,
+by taking data from rabbit on **queue="bz-ion-service-queue"** 
+and giving it to ION on request
+and on response from ION puts data in rabbit on **queue="bz-ion-service-response"**
+
+### rabbit data going to bz-ion-service
+```json
+{
+  "transactionId": "1",
+  "dateAndTime": "2024-02-14T08:57:23.676Z",
+  "actionCode": "locationUpdate",
+  "handlingUnit": [
+    {
+      "handlingUnitId": "R202011040000000519",
+      "cdfHight": "600",
+      "cdfWidth": "600",
+      "warehouse": "R0100",
+      "cdfLocation": "0001",
+      "cdfLocationSegmantNumber": "0004"
+    },
+    {
+      "handlingUnitId": "R202011040000001219",
+      "cdfHight": "600",
+      "cdfWidth": "600",
+      "warehouse": "R0100",
+      "cdfLocation": "0001",
+      "cdfLocationSegmantNumber": "0004"
+    },
+    {
+      "handlingUnitId": "R20201104000a000519",
+      "cdfHight": "600",
+      "cdfWidth": "600",
+      "warehouse": "R0100",
+      "cdfLocation": "0001",
+      "cdfLocationSegmantNumber": "0004"
+    }
+  ]
+}
+```
+
+### rabbit data returning from bz-ion-service
+fail
+```json
+{
+  "transactionId": "1",
+  "success": false,
+  "errorLog": [
+    "err orr",
+    "errorror"
+  ]
+}
+```
+success
+```json
+{
+  "transactionId": "1",
+  "success": true,
+  "errorLog": null
+}
+```
+
+
 ## return from ion
 
 ```
@@ -10,8 +73,8 @@
          <gs:mvid>?</gs:mvid>
          <gs:success>Accepted</gs:success>
          <gs:errorlog>
-         		<gs:error>err orr</gs:error>
-         		<gs:error>errorr</gs:error>
+         	<gs:error>err orr</gs:error>
+         	<gs:error>errorr</gs:error>
          </gs:errorlog>
       </gs:SetAcknowledgeRequest>
    </soapenv:Body>

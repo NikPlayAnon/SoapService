@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody
 import zb.ru.bzionservice.rabbit.dto.TransactionNoticeRabbitDto
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
+import org.springframework.beans.factory.annotation.Value
 
 
 //@Log4j2
@@ -25,15 +26,20 @@ import com.fasterxml.jackson.module.kotlin.KotlinModule
 //    var template: AmqpTemplate? = null
 //    var template: AmqpTemplate? = AmqpTemplate()
 
+    @Value("\${spring.rabbitmq.exchange}")
+    private val exchange: String? = null
+
+    // Value is populated with the routing key from "application.properties" file.
+    @Value("\${spring.rabbitmq.routingkey.setter}")
+    private val routingKey: String? = null
+
 
     @RequestMapping("/emit")
     @ResponseBody
     fun queue1(message: TransactionNoticeRabbitDto): String? {
-//        logger.info("Emit to queue1")
-//        amqpTemplate.convertAndSend("amq.direct","amq.direct.2", "Message to queue")
-//        println(message)
+
         val mapper = ObjectMapper().registerModule(KotlinModule())
-        rabbitTemplate.convertAndSend("amq.direct","amq.direct.2", mapper.writeValueAsString(message))
+        rabbitTemplate.convertAndSend(this.exchange!!,this.routingKey!!, mapper.writeValueAsString(message))
         return "Emit to queue"
     }
 }

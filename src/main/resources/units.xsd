@@ -5,7 +5,7 @@
     <xs:element name="GetHandlingUnitsRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="fromIon" type="xs:string"/>
+<!--                <xs:element name="fromIon" type="xs:string"/>-->
             </xs:sequence>
         </xs:complexType>
     </xs:element>
