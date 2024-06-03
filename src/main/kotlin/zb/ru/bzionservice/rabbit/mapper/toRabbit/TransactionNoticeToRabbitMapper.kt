@@ -16,4 +16,4 @@ class TransactionNoticeToRabbitMapper {
 //fun AData.toDomain(): ADomain =
 //        ADomain(
 //                a = "f"
-//        )
+//        ) 
