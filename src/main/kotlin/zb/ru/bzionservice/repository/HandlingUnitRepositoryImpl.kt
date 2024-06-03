@@ -4,32 +4,21 @@ package zb.ru.bzionservice.repository
 //import com.rabbitmq.client.DeliverCallback
 //import com.rabbitmq.client.Delivery
 import jakarta.annotation.PostConstruct
-import org.springframework.beans.factory.annotation.Value
+import org.springframework.amqp.core.AmqpTemplate
+import org.springframework.amqp.rabbit.core.RabbitTemplate
 import org.springframework.stereotype.Component
 import zb.ru.bzionservice.model.HandlingUnit
 import zb.ru.bzionservice.model.HandlingUnits
 import zb.ru.bzionservice.model.TransactionNotice
+import zb.ru.bzionservice.rabbit.PublisherController
+import zb.ru.bzionservice.rabbit.RabbitMqConfig
+import zb.ru.bzionservice.rabbit.SubscriberService
 import java.util.*
 
 
+
 @Component
-class HandlingUnitRepositoryImpl : HandlingUnitRepository {
-    @Value("\${spring.rabbitmq.port}")
-    lateinit var rabbitmqPort: String
-
-    @Value("\${spring.rabbitmq.username}")
-    lateinit var rabbitmqUsername: String
-
-    @Value("\${spring.rabbitmq.password}")
-    lateinit var rabbitmqPassword: String
-
-    @Value("\${spring.rabbitmq.queue}")
-    lateinit var rabbitmqQueue: String
-
-    @Value("\${spring.rabbitmq.host}")
-    lateinit var rabbitmqUrl: String
-
-
+class HandlingUnitRepositoryImpl(private val publisherController: PublisherController) : HandlingUnitRepository {
     @PostConstruct
     fun initData() {
         unitList += HandlingUnit(
@@ -80,7 +69,10 @@ class HandlingUnitRepositoryImpl : HandlingUnitRepository {
 
     override fun setResponse(response: TransactionNotice) {
         responseQueue.add(response)
+        val mapper = "asd" //jacksonObjectMapper()
+        println(response)
         println(responseQueue)
+        publisherController.queue1()
     }
 
     override fun addToQueue(handlingUnitFromRabbit: HandlingUnits) {

@@ -7,6 +7,5 @@ import zb.ru.bzionservice.model.TransactionNotice
 interface HandlingUnitRepository {
     fun findFirst(): HandlingUnits?
     fun setResponse(response: TransactionNotice): Unit
-
     fun addToQueue(handlingUnitFromRabbit: HandlingUnits)
 }

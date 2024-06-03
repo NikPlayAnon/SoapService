@@ -4,19 +4,21 @@ import org.springframework.amqp.core.Binding
 import org.springframework.amqp.core.BindingBuilder
 import org.springframework.amqp.core.Queue
 import org.springframework.amqp.core.TopicExchange
+import org.springframework.amqp.rabbit.core.RabbitTemplate
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import org.springframework.ws.config.annotation.EnableWs
 import java.lang.Boolean
 import kotlin.String
 
 
 //@EnableWs
 @Configuration
-class RabbitMqConfig {
+class RabbitMqConfig (private val rabbitTemplate: RabbitTemplate) {
+
     // Value is populated with the queue name from "application.properties" file.
-    @Value("\${spring.rabbitmq.queue}")
+    @Value("\${spring.rabbitmq.queue.from.bzionservice}")
     private val queueName: String? = null
 
     // Value is populated with the exchange name from "application.properties" file.
@@ -49,19 +51,10 @@ class RabbitMqConfig {
     }
 
     @Bean
-    fun username(): Binding? {
-        return BindingBuilder.bind(queue()).to(topicExchange()).with(userName)
+    fun binding(): Binding {
+        return BindingBuilder.bind(queue()).to(topicExchange()).with("spring.rabbitmq.routingkey")
     }
 
-    @Bean
-    fun password(): Binding? {
-        return BindingBuilder.bind(queue()).to(topicExchange()).with(password)
-    }
 
-    @Bean
-    fun binding(queue: Queue?, topicExchange: TopicExchange?): Binding {
-        // Binding the queue to the topic with a routing key.
-        return BindingBuilder.bind(queue).to(topicExchange).with(routingKey)
-    }
 }
 
