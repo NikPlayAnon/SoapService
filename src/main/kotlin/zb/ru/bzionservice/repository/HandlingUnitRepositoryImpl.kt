@@ -19,46 +19,46 @@ import java.util.*
 class HandlingUnitRepositoryImpl(private val publisherController: PublisherController) : HandlingUnitRepository {
     @PostConstruct
     fun initData() {
-        unitList += HandlingUnit(
-            handlingUnitId = "R202011040000000519",
-            cdfHight = "600",
-            cdfWidth = "600",
-            warehouse = "R0100",
-            cdfLocation = "0001",
-            cdfLocationSegmantNumber = "0004"
-        )
-        unitList += HandlingUnit(
-            handlingUnitId = "R202011040000000638",
-            cdfHight = "600",
-            cdfWidth = "600",
-            warehouse = "R0100",
-            cdfLocation = "0001",
-            cdfLocationSegmantNumber = "0004"
-        )
-        unitList += HandlingUnit(
-            handlingUnitId = "R202011040000000880",
-            cdfHight = "600",
-            cdfWidth = "600",
-            warehouse = "R0100",
-            cdfLocation = "0001",
-            cdfLocationSegmantNumber = "0004"
-        )
-        addToQueue(
-            HandlingUnits(
-                transactionId = "1",
-                dateAndTime = "2024-02-14T08:57:23.676Z",
-                actionCode = "locationUpdate",
-                handlingUnit = unitList
-            )
-        )
-        addToQueue(
-            HandlingUnits(
-                transactionId = "2",
-                dateAndTime = "2024-02-14T08:57:23.676Z",
-                actionCode = "sizeUpdate",
-                handlingUnit = unitList
-            )
-        )
+//        unitList += HandlingUnit(
+//            handlingUnitId = "R202011040000000519",
+//            cdfHight = "600",
+//            cdfWidth = "600",
+//            warehouse = "R0100",
+//            cdfLocation = "0001",
+//            cdfLocationSegmantNumber = "0004"
+//        )
+//        unitList += HandlingUnit(
+//            handlingUnitId = "R202011040000000638",
+//            cdfHight = "600",
+//            cdfWidth = "600",
+//            warehouse = "R0100",
+//            cdfLocation = "0001",
+//            cdfLocationSegmantNumber = "0004"
+//        )
+//        unitList += HandlingUnit(
+//            handlingUnitId = "R202011040000000880",
+//            cdfHight = "600",
+//            cdfWidth = "600",
+//            warehouse = "R0100",
+//            cdfLocation = "0001",
+//            cdfLocationSegmantNumber = "0004"
+//        )
+//        addToQueue(
+//            HandlingUnits(
+//                transactionId = "1",
+//                dateAndTime = "2024-02-14T08:57:23.676Z",
+//                actionCode = "locationUpdate",
+//                handlingUnit = unitList
+//            )
+//        )
+//        addToQueue(
+//            HandlingUnits(
+//                transactionId = "2",
+//                dateAndTime = "2024-02-14T08:57:23.676Z",
+//                actionCode = "sizeUpdate",
+//                handlingUnit = unitList
+//            )
+//        )
     }
 
     override fun findFirst(): HandlingUnits? {

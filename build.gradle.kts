@@ -16,6 +16,10 @@ java {
 	sourceCompatibility = JavaVersion.VERSION_17
 }
 
+//application {
+//	mainClass = "zb.ru.bzionservice.BzIonServiceApplication"
+//}
+
 repositories {
 	mavenCentral()
 }
@@ -44,4 +48,14 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+}
+
+tasks.jar {
+	manifest {
+		attributes(mapOf("Main-Class" to "zb.bz.bzionservice.BzIonServiceApplication"))
+	}
+
+//	configurations["zb/ru/bzionservice"].forEach { file: File ->
+//		from(zipTree(file.absoluteFile))
+//	}
 }
