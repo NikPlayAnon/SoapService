@@ -12,7 +12,9 @@ import jakarta.xml.bind.annotation.XmlType
         "cdfWdth",
         "cwar",
         "cdfLoca",
-        "cdfLose"
+        "cdfLose",
+        "status",
+        "comment"
     ]
 )
 data class HandlingUnitIonDto(
@@ -21,7 +23,9 @@ data class HandlingUnitIonDto(
     val cdfWdth: String,
     val cwar: String,
     val cdfLoca: String,
-    val cdfLose: String
+    val cdfLose: String,
+    val status: String,
+    val comment: String
 ) {
 }
 

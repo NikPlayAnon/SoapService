@@ -4,13 +4,15 @@ import zb.ru.bzionservice.model.HandlingUnit
 import zb.ru.bzionservice.soap.dto.Mapper
 import zb.ru.bzionservice.soap.dto.model.HandlingUnitIonDto
 
-class HandlingUnitIonMapper: Mapper<HandlingUnit, HandlingUnitIonDto> {
+class HandlingUnitIonMapper : Mapper<HandlingUnit, HandlingUnitIonDto> {
     override fun transform(source: HandlingUnit?): HandlingUnitIonDto = HandlingUnitIonDto(
-        source!!.handlingUnitId,
-        source.cdfHight,
-        source.cdfWidth,
-        source.warehouse,
-        source.cdfLocation,
-        source.cdfLocationSegmantNumber
+            source!!.id,
+            source.length,
+            source.width,
+            source.warehouse,
+            source.location,
+            source.sequence,
+            source.status,
+            source.comment
     )
 }

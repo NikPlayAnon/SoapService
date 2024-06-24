@@ -7,11 +7,13 @@ import zb.ru.bzionservice.rabbit.dto.HandlingUnitRabbitDto
 class HandlingUnitFromRabbitMapper : Mapper<HandlingUnitRabbitDto, HandlingUnit> {
 //    class HandlingUnitMapper: Mapper<HandlingUnitIonDto, HandlingUnit> {
         override fun transform(source: HandlingUnitRabbitDto?): HandlingUnit = HandlingUnit(
-            source!!.handlingUnitId,
-            source.cdfHight,
-            source.cdfWidth,
+            source!!.id,
+            source.length,
+            source.width,
             source.warehouse,
-            source.cdfLocation,
-            source.cdfLocationSegmantNumber
+            source.location,
+            source.sequence,
+            source.status,
+            source.comment
         )
     }

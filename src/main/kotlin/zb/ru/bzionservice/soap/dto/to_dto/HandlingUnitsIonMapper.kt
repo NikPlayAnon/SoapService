@@ -9,6 +9,6 @@ class HandlingUnitsIonMapper: Mapper<HandlingUnits, HandlingUnitsIonDto> {
             source!!.transactionId,
             source.dateAndTime,
             source.actionCode,
-            source.handlingUnit.map { HandlingUnitIonMapper().transform(it)}
+            source.measured_remainders.map { HandlingUnitIonMapper().transform(it)}
         )
 }
