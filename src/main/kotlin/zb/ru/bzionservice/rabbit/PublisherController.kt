@@ -13,6 +13,7 @@ import zb.ru.bzionservice.rabbit.dto.TransactionNoticeRabbitDto
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.springframework.beans.factory.annotation.Value
+import zb.ru.bzionservice.rabbit.dto.IonNotice
 
 
 //@Log4j2
@@ -36,38 +37,10 @@ import org.springframework.beans.factory.annotation.Value
 
     @RequestMapping("/emit")
     @ResponseBody
-    fun queue1(message: TransactionNoticeRabbitDto): String? {
+    fun queue1(message: IonNotice): String? {
 
         val mapper = ObjectMapper().registerModule(KotlinModule())
         rabbitTemplate.convertAndSend(this.exchange!!,this.routingKey!!, mapper.writeValueAsString(message))
         return "Emit to queue"
     }
 }
-
-
-//@RestController
-////@Controller
-//@RequestMapping("/springrabbitmqapi")
-//class PublisherController
-//    (
-//    val rabbitTemplate: RabbitTemplate = RabbitTemplate(),
-//    val binding: Binding
-//) {
-////    @Autowired
-////    private var rabbitTemplate: RabbitTemplate = RabbitTemplate()
-////    @Autowired
-////    private lateinit var binding: Binding
-//
-//
-//    @PostMapping(value = ["/send"])
-//    @ResponseStatus(code = HttpStatus.OK)
-//    fun send(@RequestBody message: String?): String {
-//        println("Sending message to the queue...")
-////        log.info("Sending message to the queue...")
-//
-//        rabbitTemplate.convertAndSend( binding.exchange, binding.routingKey, message!!)
-//        println("Message sent successfully to the queue, sending back the response to the user...")
-////        log.info("Message sent successfully to the queue, sending back the response to the user...")
-//        return "Message sent successfully to the queue!"
-//    }
-//}

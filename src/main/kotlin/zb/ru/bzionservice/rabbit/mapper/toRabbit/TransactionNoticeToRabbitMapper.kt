@@ -11,9 +11,9 @@ class TransactionNoticeToRabbitMapper: Mapper<TransactionNotice, TransactionNoti
             TransactionNoticeRabbitDto(
                     source!!.transactionId,
                     source.success,
-                    source.errorLog
+                    source.datentime,
+                    source?.errorLog
             )
-
 }
 
 //data class AData(val a: String)

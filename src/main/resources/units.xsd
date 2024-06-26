@@ -39,6 +39,7 @@
             <xs:sequence>
                 <xs:element name="mvid" type="xs:string" maxOccurs="1" minOccurs="1"/>
                 <xs:element name="success" type="xs:string" maxOccurs="1" minOccurs="1"/>
+                <xs:element name="datentime" type="xs:string" maxOccurs="1" minOccurs="1"/>
                 <xs:element name="errorlog" type="tns:resultList" minOccurs="1"/>
             </xs:sequence>
         </xs:complexType>

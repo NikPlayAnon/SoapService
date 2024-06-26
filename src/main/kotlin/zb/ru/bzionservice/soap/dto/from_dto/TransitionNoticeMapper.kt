@@ -8,6 +8,7 @@ class TransactionNoticeMapper: Mapper<TransactionNoticeIonDto, TransactionNotice
     override fun transform(source: TransactionNoticeIonDto?): TransactionNotice = TransactionNotice(
         source!!.mvid,
         source.success,
+            source.datentime,
         source.errorlog
     )
 }
