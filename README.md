@@ -19,7 +19,7 @@ and on response from ION puts data in rabbit on **queue="bz-ion-service-response
       "warehouse": "R0100",
       "location": "НАЛУНЕ",
       "sequence": "1",
-      "status": "in.kocz",
+      "status": "3",
       "comment": ""
     },
     {
@@ -29,7 +29,7 @@ and on response from ION puts data in rabbit on **queue="bz-ion-service-response
       "warehouse": "R0100",
       "location": "НАЛУНЕ",
       "sequence": "2",
-      "status": "in.kocz",
+      "status": "3",
       "comment": ""
     },
     {
@@ -39,7 +39,7 @@ and on response from ION puts data in rabbit on **queue="bz-ion-service-response
       "warehouse": "R0100",
       "location": "НАЛУНЕ",
       "sequence": "3",
-      "status": "in.kocz",
+      "status": "3",
       "comment": ""
     }
   ]

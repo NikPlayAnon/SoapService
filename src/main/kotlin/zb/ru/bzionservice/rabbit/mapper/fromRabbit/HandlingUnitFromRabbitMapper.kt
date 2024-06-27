@@ -13,7 +13,13 @@ class HandlingUnitFromRabbitMapper : Mapper<HandlingUnitRabbitDto, HandlingUnit>
             source.warehouse,
             source.location,
             source.sequence,
-            source.status,
+//            source.status,
+            status =  when(source.status){
+                "1" -> "created"
+                "2" -> "in.kocz"
+                "3" -> "in.msch"
+                else -> "used"
+            },
             source.comment
         )
     }
