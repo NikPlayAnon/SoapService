@@ -24,7 +24,8 @@ class IonNoticeToRabbit: Mapper<TransactionNotice, IonNotice> {
                     source.datentime,
                     "success",
                     "someone",
-                    listOf()
+//                    listOf()
+                    null
             )
         }
     }

@@ -2,6 +2,7 @@ package zb.ru.bzionservice.rabbit.dto
 
 import com.fasterxml.jackson.annotation.JsonAlias
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonInclude
 import zb.ru.bzionservice.rabbit.dto.IonError.MeasuredRemainder
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -14,6 +15,7 @@ data class IonNotice(
         var transactionstatus: String,
         @JsonAlias("user")
         var user: String,
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         @JsonAlias("measured_remainders")
-        val measuredRemainders: List<MeasuredRemainder>
+        val measuredRemainders: List<MeasuredRemainder>?
 ) {}
