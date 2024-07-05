@@ -12,6 +12,7 @@ class TransactionNoticeToRabbitMapper: Mapper<TransactionNotice, TransactionNoti
                     source!!.transactionId,
                     source.success,
                     source.datentime,
+                    source.tenantId,
                     source?.errorLog
             )
 }

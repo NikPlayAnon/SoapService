@@ -16,14 +16,15 @@ class IonNoticeToRabbit: Mapper<TransactionNotice, IonNotice> {
         if (!errorstring.isNullOrEmpty()) {
             val ionNotice: IonNotice = jacksonObjectMapper().readValue(content = errorstring)
             ionNotice?.transactionid=source!!.transactionId
-            ionNotice?.transactiondate=source!!.datentime
+            ionNotice?.transactiondate=source.datentime
+            ionNotice?.user=source.tenantId
             return ionNotice
         } else {
             return IonNotice(
                     source!!.transactionId,
                     source.datentime,
                     "success",
-                    "someone",
+                    source.tenantId,
 //                    listOf()
                     null
             )

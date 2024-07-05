@@ -11,6 +11,8 @@ data class TransactionNoticeRabbitDto(
         val success: Boolean,
         @JsonAlias("datentime")
         val datentime: String,
+        @JsonAlias("tenantId")
+        val tenantId: String,
         @JsonAlias("errorLog")
         val errorLog: List<String>?
 ) {
