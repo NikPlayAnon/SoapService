@@ -11,6 +11,7 @@ class HandlingUnitsFromRabbitMapper: Mapper<HandlingUnitsRabbitDto, HandlingUnit
             source!!.transactionId,
             source.dateAndTime,
             source.actionCode,
+            source.user,
             source.handlingUnit.map { HandlingUnitFromRabbitMapper().transform(it)}
         )
     }

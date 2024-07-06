@@ -11,6 +11,7 @@ and on response from ION puts data in rabbit on **queue="bz-ion-service-response
 {
   "transactionId": "1",
   "dateAndTime": "2024-02-14T08:57:23.676Z",
+  "user": "v_ivanov",
   "handlingUnit": [
     {
       "id": "R202011040000000519",
@@ -51,7 +52,7 @@ fail
 ```json
 {
   "transactionid": "1",
-  "transactiondate": "null",
+  "transactiondate": "2024-02-14T08:57:23.676Z",
   "transactionstatus": "failed",
   "user": "v_ivanov",
   "measuredRemainders": [
@@ -73,9 +74,9 @@ success
 ```json
 {
   "transactionid": "1",
-  "transactiondate": "null",
+  "transactiondate": "2024-02-14T08:57:23.676Z",
   "transactionstatus": "success",
-  "user": "someone"
+  "user": "v_ivanov"
 }
 ```
 

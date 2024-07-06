@@ -9,6 +9,7 @@ class HandlingUnitsMapper: Mapper<HandlingUnitsIonDto, HandlingUnits> {
             source!!.mvid,
             source.datentime,
             source.actioncode,
+            source.user,
             source.handlingUnit.map { HandlingUnitMapper().transform(it)}
         )
 }
