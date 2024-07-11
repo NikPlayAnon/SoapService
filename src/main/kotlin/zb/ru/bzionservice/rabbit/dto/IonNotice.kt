@@ -8,11 +8,11 @@ import zb.ru.bzionservice.rabbit.dto.IonError.MeasuredRemainder
 @JsonIgnoreProperties(ignoreUnknown = true)
 data class IonNotice(
         @JsonAlias("transactionid")
-        var transactionid: String,
+        var transaction_id: String,
         @JsonAlias("transactiondate")
-        var transactiondate: String,
+        var transaction_date: String,
         @JsonAlias("transactionstatus")
-        var transactionstatus: String,
+        var transaction_status: String,
         @JsonAlias("user")
         var user: String,
         @JsonInclude(JsonInclude.Include.NON_NULL)

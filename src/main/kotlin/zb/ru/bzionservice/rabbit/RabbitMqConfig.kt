@@ -1,69 +1,77 @@
 package zb.ru.bzionservice.rabbit
 
-import org.springframework.amqp.core.Binding
-import org.springframework.amqp.core.BindingBuilder
-import org.springframework.amqp.core.Queue
-import org.springframework.amqp.core.TopicExchange
+
+import org.springframework.amqp.core.*
+import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory
+import org.springframework.amqp.rabbit.connection.ConnectionFactory
 import org.springframework.amqp.rabbit.core.RabbitTemplate
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import java.lang.Boolean
+
 import kotlin.String
 
 
 //@EnableWs
 @Configuration
 class RabbitMqConfig (private val rabbitTemplate: RabbitTemplate) {
-
     // Value is populated with the queue name from "application.properties" file.
-    @Value("\${spring.rabbitmq.queue.from.bzionservice}")
-    private val queueName: String? = null
-
+    @Value("\${inventory_measured-remainders}")
+    private val queueNameMRInventory: String? = null
+    // Value is populated with the queue name from "application.properties" file.
+    @Value("\${update_measured-remainder}")
+    private val queueNameMRUpdate: String? = null
+    // Value is populated with the queue name from "application.properties" file.
+    @Value("\${update_response_measured-remainder}")
+    private val queueNameResponce: String? = null
     // Value is populated with the exchange name from "application.properties" file.
     @Value("\${spring.rabbitmq.exchange}")
-    private val exchange: String? = null
+    private val measuredRemaindersExchange: String? = null
+    @Value("\${inventory_measured-remainders.key}")
+    private val findMRInventoryKey: String? = null
+    @Value("\${update_measured-remainder.key}")
+    private val findMRUpdateKey: String? = null
+    @Value("\${response_measured-remainder.key}")
+    private val findMRResponceKey: String? = null
 
-    // Value is populated with the routing key from "application.properties" file.
-    @Value("\${spring.rabbitmq.routingkey.setter}")
-    private val routingKey: String? = null
-
-    // Value is populated with the exchange name from "application.properties" file.
-    @Value("\${spring.rabbitmq.username}")
-    private val userName: String? = null
-
-    // Value is populated with the routing key from "application.properties" file.
-    @Value("\${spring.rabbitmq.password}")
-    private val password: String? = null
-
-    // @Bean annotation tells that a method produces a bean which is to be managed by the spring container.
-    @Bean("rabbitgetter")
-    fun queue1(): Queue {
-        // Creating a queue.
-        return Queue(queueName, Boolean.FALSE)
-    }
-
-    @Bean("rabbitsetter")
-    fun queue2(): Queue {
-        // Creating a queue.
-        return Queue(queueName, Boolean.FALSE)
+    @Autowired
+    fun setupRabbitTemplate(template: RabbitTemplate) {
+        template.messageConverter = Jackson2JsonMessageConverter()
     }
 
     @Bean
-    fun topicExchange(): TopicExchange {
-        // Creating a topic exchange.
-        return TopicExchange(exchange)
+    fun rabbitListenerContainerFactory(connectionFactory: ConnectionFactory?): SimpleRabbitListenerContainerFactory {
+        return SimpleRabbitListenerContainerFactory().apply {
+            setMessageConverter(Jackson2JsonMessageConverter())
+            setConnectionFactory(connectionFactory)
+        }
     }
 
     @Bean
-    fun binding1(): Binding {
-        return BindingBuilder.bind(queue1()).to(topicExchange()).with("spring.rabbitmq.routingkey.getter")
-    }
+    fun measuredRemaindersExchange() = DirectExchange(measuredRemaindersExchange, true, false)
     @Bean
-    fun binding2(): Binding {
-        return BindingBuilder.bind(queue2()).to(topicExchange()).with("spring.rabbitmq.routingkey.setter")
-    }
-
+    fun queue1() = Queue(queueNameMRInventory, true)
+    @Bean
+    fun queue2() = Queue(queueNameMRUpdate, true)
+    @Bean
+    fun queue3() = Queue(queueNameResponce, true)
+    @Bean
+    fun binding1() = BindingBuilder
+            .bind(queue1())
+            .to(measuredRemaindersExchange())
+            .with(findMRInventoryKey)
+    @Bean
+    fun binding2() = BindingBuilder
+            .bind(queue2())
+            .to(measuredRemaindersExchange())
+            .with(findMRUpdateKey)
+    @Bean
+    fun binding3() = BindingBuilder
+            .bind(queue3())
+            .to(measuredRemaindersExchange())
+            .with(findMRResponceKey)
 
 }
 

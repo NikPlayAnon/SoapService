@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAlias
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-data class HandlingUnitsRabbitDto(
+data class HandlingUnitsUpdateRabbitDto(
         @JsonAlias("id")
         val transaction_id: String,
         @JsonAlias("transaction_date")
@@ -15,6 +15,6 @@ data class HandlingUnitsRabbitDto(
         @JsonAlias("userLogin")
         val user: String?,
         @JsonAlias("measured_remainders", "measuredRemainder")
-        val measured_remainder: List<HandlingUnitRabbitDto>?
+        val measured_remainder: HandlingUnitRabbitDto?
 ) {
 }

@@ -8,16 +8,16 @@ class HandlingUnitFromRabbitMapper : Mapper<HandlingUnitRabbitDto, HandlingUnit>
 //    class HandlingUnitMapper: Mapper<HandlingUnitIonDto, HandlingUnit> {
         override fun transform(source: HandlingUnitRabbitDto?): HandlingUnit = HandlingUnit(
             source!!.id,
-            source.length,
-            source.width,
+            source.length.toString(),
+            source.width.toString(),
             source.warehouse,
             source.location,
-            source.sequence,
+            source.sequence.toString(),
 //            source.status,
             status =  when(source.status){
-                "1" -> "created"
-                "2" -> "in.kocz"
-                "3" -> "in.msch"
+                1 -> "created"
+                2 -> "in.kocz"
+                3 -> "in.msch"
                 else -> "used"
             },
             source.comment

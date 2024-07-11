@@ -4,7 +4,6 @@ import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.fasterxml.jackson.module.kotlin.readValue
 import zb.ru.bzionservice.model.TransactionNotice
 import zb.ru.bzionservice.rabbit.dto.IonNotice
-import zb.ru.bzionservice.rabbit.dto.TransactionNoticeRabbitDto
 import zb.ru.bzionservice.soap.dto.Mapper
 
 class IonNoticeToRabbit: Mapper<TransactionNotice, IonNotice> {
@@ -12,11 +11,13 @@ class IonNoticeToRabbit: Mapper<TransactionNotice, IonNotice> {
 
         var errorstring: String =""
         source?.errorLog?.forEach { errorstring+= it }
-        println("errorstring= "+errorstring)
+        println("errorstring =" + errorstring)
         if (!errorstring.isNullOrEmpty()) {
+            println("mark2")
             val ionNotice: IonNotice = jacksonObjectMapper().readValue(content = errorstring)
-            ionNotice?.transactionid=source!!.transactionId
-            ionNotice?.transactiondate=source.datentime
+            println("mark3")
+            ionNotice?.transaction_id=source!!.transactionId
+            ionNotice?.transaction_date=source.datentime
             ionNotice?.user=source.tenantId
             return ionNotice
         } else {
@@ -25,7 +26,6 @@ class IonNoticeToRabbit: Mapper<TransactionNotice, IonNotice> {
                     source.datentime,
                     "success",
                     source.tenantId,
-//                    listOf()
                     null
             )
         }

@@ -1,12 +1,25 @@
 package zb.ru.bzionservice.rabbit.dto
 
-data class HandlingUnitRabbitDto(val id: String,
-                                 val length: String,
-                                 val width: String,
-                                 val warehouse: String,
-                                 val location: String,
-                                 val sequence: String,
-                                 val status: String,
-                                 val comment: String
+import com.fasterxml.jackson.annotation.JsonAlias
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+data class HandlingUnitRabbitDto(
+        @JsonAlias("id")
+        val id: String,
+        @JsonAlias("length")
+        val length: Float?,
+        @JsonAlias("width")
+        val width: Float?,
+        @JsonAlias("warehouse")
+        val warehouse: String ="",
+        @JsonAlias("location")
+        val location: String ="",
+        @JsonAlias("sequence")
+        val sequence: Int,
+        @JsonAlias("status")
+        val status: Int,
+        @JsonAlias("comment")
+        val comment: String =""
         ) {
 }

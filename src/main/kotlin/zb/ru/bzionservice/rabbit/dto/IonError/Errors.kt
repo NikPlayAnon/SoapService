@@ -19,6 +19,16 @@ data class Errors(
         @JsonAlias("sequence")
         val sequence: Error?,
         @JsonInclude(JsonInclude.Include.NON_NULL)
-        @JsonAlias("length_from")
-        val lengthFrom: Error?) {
+        @JsonAlias("length")
+        val length: Error?,
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @JsonAlias("width")
+        val width: Error?,
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @JsonAlias("comment")
+        val comment: Error?,
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @JsonAlias("status")
+        val status: Error?
+){
 }

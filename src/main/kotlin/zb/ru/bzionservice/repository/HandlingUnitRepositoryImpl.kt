@@ -29,7 +29,8 @@ class HandlingUnitRepositoryImpl(private val publisherController: PublisherContr
     }
 
     override fun setResponse(response: TransactionNotice) {
-        responseQueue.add(response)
+//        responseQueue.add(response)
+        println("mark1 = "+ response)
         publisherController.queue1(IonNoticeToRabbit().transform(response))
     }
 
@@ -40,5 +41,5 @@ class HandlingUnitRepositoryImpl(private val publisherController: PublisherContr
 
     var unitList = listOf<HandlingUnit>()
     var absoluteUnit: Queue<HandlingUnits> = LinkedList<HandlingUnits>()
-    var responseQueue: Queue<TransactionNotice> = LinkedList<TransactionNotice>()
+//    var responseQueue: Queue<TransactionNotice> = LinkedList<TransactionNotice>()
 }

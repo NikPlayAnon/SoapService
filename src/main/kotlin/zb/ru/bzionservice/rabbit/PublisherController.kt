@@ -1,18 +1,11 @@
 package zb.ru.bzionservice.rabbit
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.fasterxml.jackson.module.kotlin.readValue
-import org.springframework.amqp.core.AmqpTemplate
+import com.fasterxml.jackson.databind.ObjectMapper
 import org.springframework.amqp.rabbit.core.RabbitTemplate
-import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
-import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
-import zb.ru.bzionservice.rabbit.dto.TransactionNoticeRabbitDto
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.fasterxml.jackson.module.kotlin.KotlinModule
-import org.springframework.beans.factory.annotation.Value
 import zb.ru.bzionservice.rabbit.dto.IonNotice
 
 
@@ -31,16 +24,20 @@ import zb.ru.bzionservice.rabbit.dto.IonNotice
     private val exchange: String? = null
 
     // Value is populated with the routing key from "application.properties" file.
-    @Value("\${spring.rabbitmq.routingkey.setter}")
+    @Value("\${response_measured-remainder.key}")
     private val routingKey: String? = null
 
 
     @RequestMapping("/emit")
     @ResponseBody
     fun queue1(message: IonNotice): String? {
-
-        val mapper = ObjectMapper().registerModule(KotlinModule())
-        rabbitTemplate.convertAndSend(this.exchange!!,this.routingKey!!, mapper.writeValueAsString(message))
+        println("mess " + message)
+//        val mapper = ObjectMapper().registerModule(KotlinModule())
+//        val mapper = ObjectMapper()
+//        println("returning " + mapper.writeValueAsString(message))
+//        rabbitTemplate.convertAndSend(this.exchange!!,this.routingKey!!, mapper.writeValueAsString(message))
+        rabbitTemplate.convertAndSend(this.exchange!!,this.routingKey!!, message)
         return "Emit to queue"
+
     }
 }
