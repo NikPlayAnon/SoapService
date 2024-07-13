@@ -2,205 +2,155 @@
 
 Service **bz-ion-service** functions as an intermediate between ION and service 
 what works with terminals for **Handling Units** operations,
-by taking data from rabbit on **queue="bz-ion-service-queue"** 
-and giving it to ION on request
-and on response from ION puts data in rabbit on **queue="bz-ion-service-response"**
+by taking data from rabbit
+and giving it to ION on request</br>
+On response from ION puts data in rabbit
 
-### rabbit data going to bz-ion-service
+### Update
+<details>
+<summary>updating measured remainder</summary>
+using queue 
+
+`update.measured-remainder`
+
+to update measured remainder, put json in rabbitmq queue as shown below</br>
+
 ```json
 {
-  "transactionId": "1",
-  "dateAndTime": "2024-02-14T08:57:23.676Z",
-  "user": "v_ivanov",
-  "handlingUnit": [
+  "transaction_id": 51,
+  "transaction_date": "2024-07-11T12:44:39.073779",
+  "user": "some_one",
+  "measured_remainders": [
     {
-      "id": "R202011040000000519",
-      "length": "600",
-      "width": "600",
-      "warehouse": "R0100",
-      "location": "НАЛУНЕ",
-      "sequence": "1",
-      "status": "3",
-      "comment": ""
+      "id": "W202011040000000001",
+      "status": 1,
+      "comment": "",
+      "length": 255.0,
+      "width": 260.0
     },
     {
-      "id": "R202011040000000880",
-      "length": "600",
-      "width": "600",
-      "warehouse": "R0100",
-      "location": "НАЛУНЕ",
-      "sequence": "2",
-      "status": "3",
-      "comment": ""
-    },
-    {
-      "id": "R202011040000000638",
-      "length": "600",
-      "width": "600",
-      "warehouse": "R0100",
-      "location": "НАЛУНЕ",
-      "sequence": "3",
-      "status": "3",
-      "comment": ""
+      "id": "W202011040000000004",
+      "status": 1,
+      "comment": "",
+      "length": 253.0,
+      "width": 260.0
     }
   ]
 }
 ```
 
-### rabbit data returning from bz-ion-service
-fail
+</details>
+
+### Inventarisation
+<details>
+<summary>Inventarisation of measured remainder</summary>
+using queue
+
+`inventory.measured-remainders`
+
+To perform inventarisation for measured remainder, put json in rabbitmq queue as shown below</br>
+
 ```json
 {
-  "transactionid": "1",
-  "transactiondate": "2024-02-14T08:57:23.676Z",
-  "transactionstatus": "failed",
-  "user": "v_ivanov",
-  "measuredRemainders": [
+  "transaction_id": 51,
+  "transaction_date": "2024-07-11T12:44:39.073779",
+  "user": "some_one",
+  "measured_remainders": [
     {
-      "id": "R202011040000000638      ",
-      "abortReason": {
+      "id": "W202011040000000001",
+      "warehouse": "R0100",
+      "location": "0001",
+      "sequence": 1,
+      "status": 1,
+      "comment": "",
+      "length": 255.0,
+      "width": 260.0
+    },
+    {
+      "id": "W202011040000000004",
+      "warehouse": "R0100",
+      "location": "0001",
+      "sequence": 2,
+      "status": 1,
+      "comment": "",
+      "length": 253.0,
+      "width": 260.0
+    }
+  ]
+}
+```
+</details>
+
+
+
+### Responses
+<details>
+<summary>Responses of measured remainder requests</summary>
+using queue
+
+`update.response.measured-remainder`
+
+To get measured remainders actions response, get json from rabbitmq queue</br>
+
+success
+
+```json
+{
+  "transaction_id":"51",
+  "transaction_date":"2024-07-11T12:44:39.073779",
+  "transaction_status":"success",
+  "user":"some_one"
+}
+```
+
+error
+
+```json
+{
+  "transaction_id": "4353545325",
+  "transaction_date": "27-11-2024 08:40:51",
+  "transaction_status": "failed",
+  "user": "v_ivanov",
+  "measured_remainders": [
+    {
+      "id": "43905823-05kjj",
+      "abort reason": {
         "errors": {
+          "length_from": {
+            "code": "1005",
+            "description": "the value must be greater than zero"
+          },
           "warehouse": {
             "code": "1005",
-            "description": "Error Multiple locations present"
+            "description": "the value must be greater than zero"
           }
+        },
+        "general": {
+          "code": "9000",
+          "description": "state error"
+        }
+      }
+    },
+    {
+      "id": "43905823-05k11",
+      "abort reason": {
+        "errors": {
+          "length_from": {
+            "code": "1005",
+            "description": "the value must be greater than zero"
+          },
+          "warehouse": {
+            "code": "1005",
+            "description": "the value must be greater than zero"
+          }
+        },
+        "general": {
+          "code": "9000",
+          "description": "state error"
         }
       }
     }
   ]
 }
 ```
-success
-```json
-{
-  "transactionid": "1",
-  "transactiondate": "2024-02-14T08:57:23.676Z",
-  "transactionstatus": "success",
-  "user": "v_ivanov"
-}
-```
-
-on response write
-mvid, success status and list of errors if any in to repository
-
-## request from ion
-
-```
-<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:gs="http://spring.io/guides/gs-producing-web-service">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <gs:GetHandlingUnitsRequest/>
-   </soapenv:Body>
-</soapenv:Envelope>
-```
-
-## WSDL
-
-```
-<wsdl:definitions targetNamespace="http://spring.io/guides/gs-producing-web-service">
-    <wsdl:types>
-        <xs:schema elementFormDefault="qualified" targetNamespace="http://spring.io/guides/gs-producing-web-service">
-            <xs:element name="GetHandlingUnitsRequest"/>
-            <xs:element name="GetHandlingUnitsResponse">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="1" minOccurs="1" name="handlingUnitsResp" type="tns:unit4TransferResp"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:complexType name="unit4TransferResp">
-                <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="1" name="mvid" type="xs:string"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="datentime" type="xs:string"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="actioncode" type="xs:string"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="user" type="xs:string"/>
-                    <xs:element minOccurs="1" name="handlingUnit" type="tns:handlingUnit"/>
-                </xs:sequence>
-            </xs:complexType>
-            <xs:complexType name="handlingUnit">
-                <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="1" name="huid" type="xs:string"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="cdfHght" type="xs:string"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="cdfWdth" type="xs:string"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="cwar" type="xs:string"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="cdfLoca" type="xs:string"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="cdfLose" type="xs:string"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="status" type="xs:string"/>
-                    <xs:element maxOccurs="1" minOccurs="1" name="comment" type="xs:string"/>
-                </xs:sequence>
-            </xs:complexType>
-            <xs:element name="SetAcknowledgeRequest">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="1" minOccurs="1" name="mvid" type="xs:string"/>
-                        <xs:element maxOccurs="1" minOccurs="1" name="success" type="xs:string"/>
-                        <xs:element maxOccurs="1" minOccurs="1" name="datentime" type="xs:string"/>
-                        <xs:element maxOccurs="1" minOccurs="1" name="tenantId" type="xs:string"/>
-                        <xs:element minOccurs="1" name="errorlog" type="tns:resultList"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-            <xs:complexType name="resultList">
-                <xs:sequence>
-                    <xs:element maxOccurs="1" minOccurs="1" name="error" type="xs:string"/>
-                </xs:sequence>
-            </xs:complexType>
-            <xs:element name="SetAcknowledgeResponse">
-                <xs:complexType>
-                    <xs:sequence>
-                        <xs:element maxOccurs="1" minOccurs="1" name="noted" type="xs:string"/>
-                    </xs:sequence>
-                </xs:complexType>
-            </xs:element>
-        </xs:schema>
-    </wsdl:types>
-    <wsdl:message name="SetAcknowledgeResponse">
-        <wsdl:part element="tns:SetAcknowledgeResponse" name="SetAcknowledgeResponse"></wsdl:part>
-    </wsdl:message>
-    <wsdl:message name="GetHandlingUnitsResponse">
-        <wsdl:part element="tns:GetHandlingUnitsResponse" name="GetHandlingUnitsResponse"></wsdl:part>
-    </wsdl:message>
-    <wsdl:message name="GetHandlingUnitsRequest">
-        <wsdl:part element="tns:GetHandlingUnitsRequest" name="GetHandlingUnitsRequest"></wsdl:part>
-    </wsdl:message>
-    <wsdl:message name="SetAcknowledgeRequest">
-        <wsdl:part element="tns:SetAcknowledgeRequest" name="SetAcknowledgeRequest"></wsdl:part>
-    </wsdl:message>
-    <wsdl:portType name="unitsPort">
-        <wsdl:operation name="SetAcknowledge">
-            <wsdl:input message="tns:SetAcknowledgeRequest" name="SetAcknowledgeRequest"></wsdl:input>
-            <wsdl:output message="tns:SetAcknowledgeResponse" name="SetAcknowledgeResponse"></wsdl:output>
-        </wsdl:operation>
-        <wsdl:operation name="GetHandlingUnits">
-            <wsdl:input message="tns:GetHandlingUnitsRequest" name="GetHandlingUnitsRequest"></wsdl:input>
-            <wsdl:output message="tns:GetHandlingUnitsResponse" name="GetHandlingUnitsResponse"></wsdl:output>
-        </wsdl:operation>
-    </wsdl:portType>
-    <wsdl:binding name="unitsPortSoap11" type="tns:unitsPort">
-        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
-        <wsdl:operation name="SetAcknowledge">
-            <soap:operation soapAction=""/>
-            <wsdl:input name="SetAcknowledgeRequest">
-                <soap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output name="SetAcknowledgeResponse">
-                <soap:body use="literal"/>
-            </wsdl:output>
-        </wsdl:operation>
-        <wsdl:operation name="GetHandlingUnits">
-            <soap:operation soapAction=""/>
-            <wsdl:input name="GetHandlingUnitsRequest">
-                <soap:body use="literal"/>
-            </wsdl:input>
-            <wsdl:output name="GetHandlingUnitsResponse">
-                <soap:body use="literal"/>
-            </wsdl:output>
-        </wsdl:operation>
-    </wsdl:binding>
-    <wsdl:service name="unitsPortService">
-        <wsdl:port binding="tns:unitsPortSoap11" name="unitsPortSoap11">
-            <soap:address location="http://u1:8081/ws"/>
-        </wsdl:port>
-    </wsdl:service>
-</wsdl:definitions>
-```
+</details>

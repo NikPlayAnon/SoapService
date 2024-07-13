@@ -15,10 +15,10 @@ class HandlingUnitFromRabbitMapper : Mapper<HandlingUnitRabbitDto, HandlingUnit>
             source.sequence.toString(),
 //            source.status,
             status =  when(source.status){
-                1 -> "created"
                 2 -> "in.kocz"
                 3 -> "in.msch"
-                else -> "used"
+                4 -> "used"
+                else -> "created"
             },
             source.comment
         )
