@@ -31,7 +31,7 @@ class HandlingUnitRepositoryImpl(private val publisherController: PublisherContr
     override fun setResponse(response: TransactionNotice) {
 //        responseQueue.add(response)
         println("mark1 = "+ response)
-        publisherController.queue1(IonNoticeToRabbit().transform(response))
+        publisherController.queue1(IonNoticeToRabbit().transform(response), response.actionCodeField)
     }
 
     override fun addToQueue(handlingUnitFromRabbit: HandlingUnits) {

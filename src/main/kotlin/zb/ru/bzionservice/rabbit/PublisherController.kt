@@ -13,31 +13,29 @@ import zb.ru.bzionservice.rabbit.dto.IonNotice
 
 
 @Component
-//class PublisherController(private val amqpTemplate: AmqpTemplate) {
-    class PublisherController(private val rabbitTemplate: RabbitTemplate) {
+class PublisherController(private val rabbitTemplate: RabbitTemplate) {
 
-//    @Autowired
-//    var template: AmqpTemplate? = null
-//    var template: AmqpTemplate? = AmqpTemplate()
+    @Value("#{\${queue.key.map}}")
+    val myMap: Map<String, String> = mapOf()
 
     @Value("\${spring.rabbitmq.exchange}")
     private val exchange: String? = null
 
-    // Value is populated with the routing key from "application.properties" file.
     @Value("\${response_measured-remainder.key}")
-    private val routingKey: String? = null
+    private var routingKey: String? = null
 
 
     @RequestMapping("/emit")
     @ResponseBody
-    fun queue1(message: IonNotice): String? {
-        println("mess " + message)
-//        val mapper = ObjectMapper().registerModule(KotlinModule())
-//        val mapper = ObjectMapper()
-//        println("returning " + mapper.writeValueAsString(message))
-//        rabbitTemplate.convertAndSend(this.exchange!!,this.routingKey!!, mapper.writeValueAsString(message))
-        rabbitTemplate.convertAndSend(this.exchange!!,this.routingKey!!, message)
-        return "Emit to queue"
+    fun queue1(message: IonNotice, action: String): String? {
+//        val temp = "writeOffOfGoods.key"
 
+
+//        println(myMap[action+".key"])
+
+        println("mess " + message)
+//        rabbitTemplate.convertAndSend(this.exchange!!,this.routingKey!!, message)
+        rabbitTemplate.convertAndSend(this.exchange!!,myMap[action+".key"]!!, message)
+        return "Emit to queue"
     }
 }

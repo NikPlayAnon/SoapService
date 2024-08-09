@@ -6,7 +6,7 @@ import zb.ru.bzionservice.soap.handling.HandlingUnitsEndpoint
 
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = ["mvid", "success", "datentime", "tenantId", "errorlog"])
+@XmlType(name = "", propOrder = ["mvid", "success", "datentime", "actionCodeField", "tenantId", "errorlog"])
 @XmlRootElement(namespace = HandlingUnitsEndpoint.NAMESPACE_URI, name = "SetAcknowledgeRequest")
 class SetAcknowledgeRequest {
     @XmlElement(namespace = HandlingUnitsEndpoint.NAMESPACE_URI, required = true)
@@ -16,6 +16,8 @@ class SetAcknowledgeRequest {
     @XmlElement(namespace = HandlingUnitsEndpoint.NAMESPACE_URI, required = true)
     protected var datentime: String = "null"
     @XmlElement(namespace = HandlingUnitsEndpoint.NAMESPACE_URI, required = true)
+    protected var actionCodeField: String = "null"
+    @XmlElement(namespace = HandlingUnitsEndpoint.NAMESPACE_URI, required = true)
     protected var tenantId: String = "null"
     @XmlElementWrapper(namespace = HandlingUnitsEndpoint.NAMESPACE_URI, name = "errorlog")
     @XmlElement(namespace = HandlingUnitsEndpoint.NAMESPACE_URI, name = "error")
@@ -24,7 +26,7 @@ class SetAcknowledgeRequest {
 
 
     fun getMvidReq(): TransactionNoticeIonDto {
-        return TransactionNoticeIonDto(mvid=this.mvid, success=this.success=="Accepted", datentime=this.datentime, tenantId=this.tenantId, errorlog=this.errorlog)
+        return TransactionNoticeIonDto(mvid=this.mvid, success=this.success=="Accepted", datentime=this.datentime, actionCodeField=this.actionCodeField, tenantId=this.tenantId, errorlog=this.errorlog)
     }
 
 

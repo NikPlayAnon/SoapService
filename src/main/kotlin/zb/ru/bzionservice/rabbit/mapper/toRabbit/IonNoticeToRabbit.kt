@@ -11,33 +11,22 @@ class IonNoticeToRabbit: Mapper<TransactionNotice, IonNotice> {
 
         var errorstring: String =""
         source?.errorLog?.forEach { errorstring+= it }
-        println("errorstring =" + errorstring)
+//        println("errorstring =" + errorstring)
         if (!errorstring.isNullOrEmpty()) {
-            println("mark2")
             val ionNotice: IonNotice = jacksonObjectMapper().readValue(content = errorstring)
-            println("mark3")
             ionNotice?.transaction_id=source!!.transactionId
             ionNotice?.transaction_date=source.datentime
+            ionNotice?.transaction_status="FAILED"
             ionNotice?.user=source.tenantId
             return ionNotice
         } else {
             return IonNotice(
                     source!!.transactionId,
                     source.datentime,
-                    "success",
+                    "COMPLETED",
                     source.tenantId,
                     null
             )
         }
     }
-
 }
-
-//
-//var errorstring: String =""
-//response.errorLog?.forEach { errorstring+= it }
-//println("errorstring= "+errorstring)
-//if (!errorstring.isNullOrEmpty()) {
-//    val ionNotice: IonNotice? = jacksonObjectMapper()?.readValue(content = errorstring)
-//    println("ionNotice="+ ionNotice)
-//}

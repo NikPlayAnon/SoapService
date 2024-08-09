@@ -35,6 +35,8 @@ class RabbitMqConfig (private val rabbitTemplate: RabbitTemplate) {
     private val findMRUpdateKey: String? = null
     @Value("\${response_measured-remainder.key}")
     private val findMRResponceKey: String? = null
+    @Value("#{\${queue.key.map}}")
+    val myMap: Map<String, String> = mapOf()
 
     @Autowired
     fun setupRabbitTemplate(template: RabbitTemplate) {
@@ -58,6 +60,10 @@ class RabbitMqConfig (private val rabbitTemplate: RabbitTemplate) {
     @Bean
     fun queue3() = Queue(queueNameResponce, true)
     @Bean
+    fun queue4() = Queue(myMap["inventoryManagement.queue"], true)
+    @Bean
+    fun queue5() = Queue(myMap["writeOffOfGoods.queue"], true)
+    @Bean
     fun binding1() = BindingBuilder
             .bind(queue1())
             .to(measuredRemaindersExchange())
@@ -72,6 +78,16 @@ class RabbitMqConfig (private val rabbitTemplate: RabbitTemplate) {
             .bind(queue3())
             .to(measuredRemaindersExchange())
             .with(findMRResponceKey)
+    @Bean
+    fun binding4() = BindingBuilder
+            .bind(queue4())
+            .to(measuredRemaindersExchange())
+            .with(myMap["inventoryManagement.key"])
+    @Bean
+    fun binding5() = BindingBuilder
+            .bind(queue5())
+            .to(measuredRemaindersExchange())
+            .with(myMap["writeOffOfGoods.key"])
 
 }
 

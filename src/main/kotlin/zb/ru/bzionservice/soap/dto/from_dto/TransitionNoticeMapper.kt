@@ -9,6 +9,7 @@ class TransactionNoticeMapper: Mapper<TransactionNoticeIonDto, TransactionNotice
         source!!.mvid,
         source.success,
             source.datentime,
+            source.actionCodeField,
             source.tenantId,
         source.errorlog
     )
