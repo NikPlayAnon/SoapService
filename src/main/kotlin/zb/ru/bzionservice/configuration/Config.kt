@@ -9,7 +9,6 @@ import org.springframework.core.io.support.PropertiesLoaderUtils
 import java.io.File
 import java.nio.file.Paths
 import java.util.*
-import kotlin.reflect.jvm.internal.impl.resolve.scopes.receivers.ThisClassReceiver
 
 
 @Configuration
@@ -37,12 +36,6 @@ class Config {
                 val props: Properties = PropertiesLoaderUtils.loadProperties(resource)
                 File(filePath).appendText("${key.toString()} = ${props.getProperty(key)}" + System.getProperty("line.separator"))
             }
-//            val resource: Resource = ClassPathResource("classpath:application.properties")
-//            val props: Properties = PropertiesLoaderUtils.loadProperties(resource)
-//            for (key in props.keys) {
-//                File(filePath).appendText("${key.toString()} = ${props.getProperty(key.toString())}" + System.getProperty("line.separator"))
-//            }
-
         }
     }
 

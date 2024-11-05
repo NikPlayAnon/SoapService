@@ -86,9 +86,10 @@ To perform inventarisation for measured remainder, put json in rabbitmq queue as
 ### Responses
 <details>
 <summary>Responses of measured remainder requests</summary>
-using queue
+using correlating queue
 
-`update.response.measured-remainder`
+`update.measured-remainder.response`
+`inventory.measured-remainders.response`
 
 To get measured remainders actions response, get json from rabbitmq queue</br>
 
@@ -98,7 +99,7 @@ success
 {
   "transaction_id":"51",
   "transaction_date":"2024-07-11T12:44:39.073779",
-  "transaction_status":"success",
+  "transaction_status":"COMPLETED",
   "user":"some_one"
 }
 ```
@@ -109,7 +110,7 @@ error
 {
   "transaction_id": "4353545325",
   "transaction_date": "27-11-2024 08:40:51",
-  "transaction_status": "failed",
+  "transaction_status": "FAILED",
   "user": "v_ivanov",
   "measured_remainders": [
     {
