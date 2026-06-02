@@ -1,7 +1,5 @@
 package zb.ru.bzionservice.model
 
-import zb.ru.bzionservice.data.rabbit.dto.TransactionNoticeRabbitDto
-
 data class TransactionNotice(val transactionId: String, val success: Boolean, val datentime: String, val actionCodeField: String, val tenantId: String, val errorLog: List<String>?) {
 }
 

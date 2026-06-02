@@ -16,6 +16,18 @@ data class Errors(
         @JsonAlias("location")
         val location: Error?,
         @JsonInclude(JsonInclude.Include.NON_NULL)
+        @JsonAlias("location_source")
+        val location_source: Error?,
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @JsonAlias("location_target")
+        val location_target: Error?,
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @JsonAlias("item")
+        val item: Error?,
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @JsonAlias("quantity")
+        val quantity: Error?,
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         @JsonAlias("sequence")
         val sequence: Error?,
         @JsonInclude(JsonInclude.Include.NON_NULL)

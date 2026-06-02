@@ -26,6 +26,7 @@ class SetAcknowledgeRequest {
 
 
     fun getMvidReq(): TransactionNoticeIonDto {
+        println("\n errorlog>>>> "+errorlog.toString())
         return TransactionNoticeIonDto(mvid=this.mvid, success=this.success=="Accepted", datentime=this.datentime, actionCodeField=this.actionCodeField, tenantId=this.tenantId, errorlog=this.errorlog)
     }
 

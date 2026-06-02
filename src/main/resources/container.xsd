@@ -1,0 +1,66 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://spring.io/guides/gs-producing-web-service"
+           xmlns:tns="http://spring.io/guides/gs-producing-web-service" elementFormDefault="qualified">
+
+    <xs:element name="GetContainerRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="transferReq" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetContainerResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="containerResp" type="tns:Items4ContainerResp" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Items4ContainerResp">
+        <xs:sequence>
+            <xs:element name="transactionId" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="transactionDate" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="user" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="container" type="tns:containerType" maxOccurs="1" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="containerType">
+        <xs:sequence>
+            <xs:element name="code" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="warehouseCode" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="binCode" type="xs:string" maxOccurs="1" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+<!--    -->
+
+    <xs:element name="SetContainerAcknowledgeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="transactionId" type="xs:string" maxOccurs="1" minOccurs="1"/>
+                <xs:element name="transactionDate" type="xs:string" maxOccurs="1" minOccurs="1"/>
+                <xs:element name="transactionStatus" type="xs:string" maxOccurs="1" minOccurs="1"/>
+                <xs:element name="user" type="xs:string" maxOccurs="1" minOccurs="1"/>
+                <xs:element name="container" type="tns:containerType" maxOccurs="1" minOccurs="1"/>
+                <xs:element name="errorlog" type="tns:ResultList" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="ResultList">
+        <xs:sequence>
+            <xs:element name="error" type="xs:string" maxOccurs="unbounded" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="SetContainerAcknowledgeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="noted" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

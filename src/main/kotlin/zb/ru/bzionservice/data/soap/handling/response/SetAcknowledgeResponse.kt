@@ -8,7 +8,7 @@ import zb.ru.bzionservice.data.soap.handling.HandlingUnitsEndpoint
 @XmlRootElement(namespace = HandlingUnitsEndpoint.NAMESPACE_URI, name = "SetAcknowledgeResponse")
 class SetAcknowledgeResponse {
     @XmlElement(required = true, namespace = HandlingUnitsEndpoint.NAMESPACE_URI)
-    protected var noted: String = "resp..."
+    protected var noted: String = "resp... ok, got it"
     fun getAcknowledge(): String {
         return noted
     }

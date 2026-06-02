@@ -1,0 +1,68 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://spring.io/guides/gs-producing-web-service"
+           xmlns:tns="http://spring.io/guides/gs-producing-web-service" elementFormDefault="qualified">
+
+    <xs:element name="GetTransferRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="transferReq" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="GetTransferResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="transferResp" type="tns:Items4TransferResp" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="Items4TransferResp">
+        <xs:sequence>
+            <xs:element name="transactionId" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="dateAndTime" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="actionCode" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="user" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="transferItem" type="tns:transferItem" maxOccurs="unbounded" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="transferItem">
+        <xs:sequence>
+            <xs:element name="warehouse" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="locationSource" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="locationTarget" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="item" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="lot" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="quantity" type="xs:string" maxOccurs="1" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="SetTransferAcknowledgeRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="mvid" type="xs:string" maxOccurs="1" minOccurs="1"/>
+                <xs:element name="success" type="xs:string" maxOccurs="1" minOccurs="1"/>
+                <xs:element name="datentime" type="xs:string" maxOccurs="1" minOccurs="1"/>
+                <xs:element name="tenantId" type="xs:string" maxOccurs="1" minOccurs="1"/>
+                <xs:element name="actionCodeField" type="xs:string" maxOccurs="1" minOccurs="1"/>
+                <xs:element name="errorlog" type="tns:ResultList" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="ResultList">
+        <xs:sequence>
+            <xs:element name="error" type="xs:string" maxOccurs="unbounded" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="SetTransferAcknowledgeResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="noted" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

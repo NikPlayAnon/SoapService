@@ -11,7 +11,9 @@ import org.springframework.ws.transport.http.MessageDispatcherServlet
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition
 import org.springframework.xml.xsd.SimpleXsdSchema
 import org.springframework.xml.xsd.XsdSchema
+import zb.ru.bzionservice.data.soap.container.ContainerEndpoint
 import zb.ru.bzionservice.data.soap.handling.HandlingUnitsEndpoint
+import zb.ru.bzionservice.data.soap.transfer.TransferEndpoint
 
 
 @EnableWs
@@ -35,9 +37,39 @@ class WebServiceConfig : WsConfigurerAdapter() {
         return wsdl11Definition
     }
 
+    @Bean(name = ["transfer"])     //  http://bzs-16-077:8080/ws/transfer.wsdl
+    fun defaultWsdl11Definition2(transferSchema: XsdSchema?): DefaultWsdl11Definition? {
+        val wsdl11Definition = DefaultWsdl11Definition()
+        wsdl11Definition.setPortTypeName("transferPort")
+        wsdl11Definition.setLocationUri("/ws")
+        wsdl11Definition.setTargetNamespace(TransferEndpoint.NAMESPACE_URI)
+        wsdl11Definition.setSchema(transferSchema)
+        return wsdl11Definition
+    }
+
+    @Bean(name = ["container"])     //  http://10.1.1.97:8082/ws/container.wsdl
+    fun defaultWsdl11Definition3(containerSchema: XsdSchema?): DefaultWsdl11Definition? {
+        val wsdl11Definition = DefaultWsdl11Definition()
+        wsdl11Definition.setPortTypeName("containerPort")
+        wsdl11Definition.setLocationUri("/ws")
+        wsdl11Definition.setTargetNamespace(ContainerEndpoint.NAMESPACE_URI)
+        wsdl11Definition.setSchema(containerSchema)
+        return wsdl11Definition
+    }
+
     //
     @Bean
-    open fun countriesSchema(): XsdSchema? {
+    open fun unitsSchema(): XsdSchema? {
         return SimpleXsdSchema(ClassPathResource("units.xsd"))
+    }
+
+    @Bean
+    open fun transferSchema(): XsdSchema? {
+        return SimpleXsdSchema(ClassPathResource("transfer.xsd"))
+    }
+
+    @Bean
+    open fun containerSchema(): XsdSchema? {
+        return SimpleXsdSchema(ClassPathResource("container.xsd"))
     }
 }
