@@ -13,18 +13,18 @@
     <xs:element name="GetHandlingUnitsResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="handlingUnitsResp" type="tns:unit4TransferResp" maxOccurs="1" minOccurs="1"/>
+                <xs:element name="handlingUnitsResp" type="tns:Unit4TransferResp" maxOccurs="1" minOccurs="1"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="unit4TransferResp">
+    <xs:complexType name="Unit4TransferResp">
         <xs:sequence>
             <xs:element name="mvid" type="xs:string" maxOccurs="1" minOccurs="1"/>
             <xs:element name="datentime" type="xs:string" maxOccurs="1" minOccurs="1"/>
             <xs:element name="actioncode" type="xs:string" maxOccurs="1" minOccurs="1"/>
             <xs:element name="user" type="xs:string" maxOccurs="1" minOccurs="1"/>
-            <xs:element name="handlingUnit" type="tns:handlingUnit" minOccurs="1"/>
+            <xs:element name="handlingUnit" type="tns:handlingUnit" maxOccurs="unbounded" minOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -49,14 +49,14 @@
                 <xs:element name="datentime" type="xs:string" maxOccurs="1" minOccurs="1"/>
                 <xs:element name="tenantId" type="xs:string" maxOccurs="1" minOccurs="1"/>
                 <xs:element name="actionCodeField" type="xs:string" maxOccurs="1" minOccurs="1"/>
-                <xs:element name="errorlog" type="tns:resultList" minOccurs="1"/>
+                <xs:element name="errorlog" type="tns:ResultList" maxOccurs="1" minOccurs="1"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="resultList">
+    <xs:complexType name="ResultList">
         <xs:sequence>
-            <xs:element name="error" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            <xs:element name="error" type="xs:string" maxOccurs="unbounded" minOccurs="1"/>
         </xs:sequence>
     </xs:complexType>
 

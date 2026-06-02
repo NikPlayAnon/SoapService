@@ -7,11 +7,13 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload
 import zb.ru.bzionservice.usecases.handling.HandlingUnitServiceImpl
 import zb.ru.bzionservice.data.soap.dto.to_dto.HandlingUnitsIonMapper
-import zb.ru.bzionservice.soap.dto.to_dto.TransactionNoticeMapper
 import zb.ru.bzionservice.data.soap.handling.request.GetHandlingUnitsRequest
+import zb.ru.bzionservice.soap.dto.to_dto.TransactionNoticeMapper
+import zb.ru.bzionservice.data.soap.handling.request.GetTransferRequest
 import zb.ru.bzionservice.data.soap.handling.request.SetAcknowledgeRequest
-import zb.ru.bzionservice.data.soap.handling.response.SetAcknowledgeResponse
 import zb.ru.bzionservice.data.soap.handling.response.GetHandlingUnitsResponse
+import zb.ru.bzionservice.data.soap.handling.response.SetAcknowledgeResponse
+import zb.ru.bzionservice.data.soap.handling.response.GetTransferResponse
 
 
 //private const val NAMESPACE_URI: String = "http://in28minutes.com/students"
