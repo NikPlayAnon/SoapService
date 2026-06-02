@@ -12,9 +12,9 @@ plugins {
 group = "zb.ru"
 version = "0.0.1-SNAPSHOT"
 
-java {
-	sourceCompatibility = JavaVersion.VERSION_17
-}
+//java {
+//	sourceCompatibility = JavaVersion.VERSION_17
+//}
 
 //application {
 //	mainClass = "zb.ru.bzionservice.BzIonServiceApplication"

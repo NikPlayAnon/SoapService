@@ -2,7 +2,13 @@
            targetNamespace="http://spring.io/guides/gs-producing-web-service"
            xmlns:tns="http://spring.io/guides/gs-producing-web-service" elementFormDefault="qualified">
 
-    <xs:element name="GetHandlingUnitsRequest"/>
+    <xs:element name="GetHandlingUnitsRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="handlingUnitsReq" type="xs:string" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
 
     <xs:element name="GetHandlingUnitsResponse">
         <xs:complexType>

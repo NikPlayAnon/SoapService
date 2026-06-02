@@ -14,6 +14,7 @@ class HandlingUnitRepositoryImpl() : HandlingUnitRepository {
     }
 
     override fun findFirst(): HandlingUnits? {
+        println("queue contains "+ (absoluteUnit.size-1) +" items ")
         return absoluteUnit.poll()
     }
 
